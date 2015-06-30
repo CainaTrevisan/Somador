@@ -76,14 +76,14 @@ library ieee;
 
 		Compl1: entity work.compl2_23 port map(out_mux1, EX1_out_comp, out_compl1);
 
-		Compl3: entity work.compl2_8 port map(out_sub, sel_sub, out_compl3);
+		Compl3: entity work.compl2_8 port map(out_sub, sel_sub, out_compl3); -- n shift da mantissa
 
 		Shift_Mantissa: entity work.shift_mantissa port map(out_compl1, out_compl3, EX1_g, EX1_r, EX1_s, EX1_out_shift1);
 
-		not_sel_sub <= not sel_sub;
+--		not_sel_sub <= not sel_sub;
 
-		Mux2: entity work.mux23 port map(mantissa1, mantissa1, not_sel_sub, EX1_out_mux2);
-		Mux3: entity work.mux8 port map(expoente1, expoente2, not_sel_sub, EX1_out_mux3);
+		Mux2: entity work.mux23 port map(mantissa2, mantissa1, sel_sub, EX1_out_mux2);
+		Mux3: entity work.mux8 port map(expoente1, expoente2, sel_sub, EX1_out_mux3);
 
 		
 		EX1: process(clk)
@@ -118,12 +118,12 @@ library ieee;
 		-----------------------------------------------------------------------------
 		-- Second Stage: EX2
 		-----------------------------------------------------------------------------
-
+--
 		Sum1: entity work.sum port map(EX2_out_shift1, EX2_out_mux2, EX2_out_sum1, EX2_vaium1);
 
 		EX2: process(clk)
 		begin
-			if rising_edge(clk) then
+			if falling_edge(clk) then
 				if rst = '1' then
 					
 					EX3_out_comp <= '0';
@@ -152,11 +152,11 @@ library ieee;
 				end if;
 			end if;
 		end process;
-
-		-----------------------------------------------------------------------------
-		-- Third Stage: EX3
-		-----------------------------------------------------------------------------
-		
+--
+--		-----------------------------------------------------------------------------
+--		-- Third Stage: EX3
+--		-----------------------------------------------------------------------------
+--		
 		out_and1 <= EX3_vaium1 and (EX3_out_sum1(22) and (not EX3_out_comp));
 		out_and2 <= EX3_vaium1 and EX3_out_comp;
 
@@ -166,7 +166,7 @@ library ieee;
 		not_vaium2 <= not vaium2;
 
 		Shift_Sum_Right: entity work.shift_one_right port map(out_compl2, out_and2, out_shift2);
-		Shift_Sum_Left: entity work.shift_sum_left port map(out_shift2, EX3_g, out_shift3, count);
+		Shift_Sum_Left: entity work.shift_sum_left port map(out_shift2, not_out_and2, out_shift3, count);
 		
 		Shift_One_Right: entity work.shift_one_right port map(out_sum2, not_vaium2, out_shift4);
 
