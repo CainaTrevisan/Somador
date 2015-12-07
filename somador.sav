@@ -1,0 +1,49 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Tue Oct  6 23:25:08 2015
+[*]
+[dumpfile] "/home/bcc/cct11/Somador/somador.vcd"
+[dumpfile_mtime] "Tue Oct  6 23:24:49 2015"
+[dumpfile_size] 124068784
+[savefile] "/home/bcc/cct11/Somador/somador.sav"
+[timestart] 132046000000
+[size] 1920 1030
+[pos] -2 -25
+*-29.567890 134337000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] a.
+[sst_width] 202
+[signals_width] 103
+[sst_expanded] 1
+[sst_vpaned_height] 579
+@28
+reset
+clock
+@22
+ab_in[31:0]
+f3[31:0]
+res[31:0]
+@28
+ok
+@200
+-sub
+@22
+a.sub.a[8:0]
+a.sub.b[8:0]
+@23
+a.sub.result[8:0]
+@200
+-sum1
+@22
+a.sum1.a[24:0]
+a.sum1.b[24:0]
+@28
+a.sum1.ow
+@22
+a.sum1.result[25:0]
+@200
+-fix_exp
+@28
+a.fix_exp.exp[8:0]
+a.fix_exp.result[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
